@@ -77,16 +77,24 @@ router.route('/user/:user_id')
 module.exports = router;*/
 module.exports = function(app)
 {
-     var User = require('../app/models/user');
-     app.get('/u',function(req,res){
-        res.json({ message: 'hooray! welcome to our user api!' });
-     });
-    app.post('/u',function(req, res) {
 
-        var user = new User();      // create a new instance of the Bear model
-        user.name = req.body.name;  // set the bears name (comes from the request)
-        user.email = req.body.email;  // set the bears name (comes from the request)
-        user.password = req.body.password;  // set the bears name (comes from the request)
+     var User = require('../app/models/user');
+
+    app.get('/api/user',function(req,res){
+        User.find(function(err, users) {
+                if (err)
+                    res.send(err);
+
+                res.json(users);
+            });
+     });
+    app.post('/api/user',function(req, res) {
+
+        var user = new User();
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password;
+        user.mobile_no = req.body.mobile_no;
 
         // save the bear and check for errors
         user.save(function(err) {

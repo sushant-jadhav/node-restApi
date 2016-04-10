@@ -5,10 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 var app = express();
 
-var Bear = require('./app/models/bear');
-var User = require('./app/models/user');
+//var Bear = require('./app/models/bear');
+//var User = require('./app/models/user');
 //var users = require('./routes/user')(app);
 
 // view engine setup
@@ -22,9 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true  }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-mongoose.connect('mongodb://localhost:27017/test');
+var connection = mongoose.connect('mongodb://localhost:27017/abhivaad');
+//mongoose.createConnection('mongodb://localhost:27017/abhivaad');
+autoIncrement.initialize(connection);
 var port = process.env.PORT || 8080;
 var users = require('./routes/user')(app);
+var question = require('./routes/question')(app);
+var answer = require('./routes/answer')(app);
+var tag = require('./routes/tag')(app);
 var router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -182,6 +188,7 @@ app.use('/api', router);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+
   next(err);
 });
 
