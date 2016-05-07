@@ -24,7 +24,7 @@ var connection = mongoose.connect('mongodb://sushant_jadhav:$ush@nt1993@ds017432
 //var connection = mongoose.createConnection('mongodb://local
 // host:27017/abhivaad');
 autoIncrement.initialize(connection);
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 var users = require('./routes/user')(app);
 var question = require('./routes/question')(app);
