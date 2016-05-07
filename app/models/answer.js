@@ -8,7 +8,7 @@ var autoIncrement = require('mongoose-auto-increment');
 
 var AnswerSchema = new Schema({
     description:String,
-    created_at:Date,
+    created_at:{ type : Date, default: Date.now },
     user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 

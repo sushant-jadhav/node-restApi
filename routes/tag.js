@@ -27,4 +27,21 @@ module.exports = function(app){
             res.json({ message: 'Tag created!' });
         });
     });
+    app.get('/api/tag/:tag_id',function(req, res) {
+        Tag.findOne({tagId:req.params.tag_id}, function(err, tag) {
+            if (err)
+                res.send(err);
+            res.json(tag);
+        });
+    });
+    app.delete('/api/tag/:tag_id',function(req, res) {
+        Tag.remove({
+            tagId: req.params.tag_id
+        }, function(err, bear) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
 }

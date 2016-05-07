@@ -94,7 +94,8 @@ module.exports = function(app)
         user.name = req.body.name;
         user.email = req.body.email;
         user.password = req.body.password;
-        user.mobile_no = req.body.mobile_no;
+        console.log(user);
+        //user.mobile_no = req.body.mobile_no;
 
         // save the bear and check for errors
         user.save(function(err) {
@@ -104,6 +105,23 @@ module.exports = function(app)
             res.json({ message: 'User created!' });
         });
 
+    });
+    app.get('/api/user/:user_id',function(req, res) {
+        User.findOne({userId:req.params.user_id}, function(err, user) {
+            if (err)
+                res.send(err);
+            res.json(user);
+        });
+    });
+    app.delete('/api/user/:user_id',function(req, res) {
+        User.remove({
+            userId: req.params.user_id
+        }, function(err, user) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        });
     });
 
 }

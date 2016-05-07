@@ -8,7 +8,7 @@ var autoIncrement = require('mongoose-auto-increment');
 
 var TagSchema = new Schema({
     name:String,
-    created_at:Date
+    created_at:{ type : Date, default: Date.now }
 });
 
 TagSchema.plugin(autoIncrement.plugin, {

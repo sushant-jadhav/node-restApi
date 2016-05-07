@@ -10,7 +10,7 @@ var UserSchema   = new Schema({
     name: String,
     email: { type: String, unique: true },
     password: String,
-    created_at:Date,
+    created_at:{ type : Date, default: Date.now },
     mobile_no:Number
 
 });

@@ -15,6 +15,13 @@ module.exports = function(app){
                 res.json(questions);
             });
     });
+    app.get('/api/question/:question_id',function(req, res) {
+        Question.findOne({questionId:req.params.question_id}).populate('user').populate('tags').exec(function(err, question) {
+            if (err)
+                res.send(err);
+            res.json(question);
+        });
+    });
     app.post('/api/question',function(req,res){
 
         var question = new Question();

@@ -31,4 +31,11 @@ module.exports = function(app){
             res.json({ message: 'Answer created!' });
         });
     });
+    app.get('/api/answer/:answer_id',function(req, res) {
+        Question.findOne({answerId:req.params.answer_id}, function(err, question) {
+            if (err)
+                res.send(err);
+            res.json(question);
+        });
+    });
 }
