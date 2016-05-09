@@ -7,10 +7,12 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 var app = express();
-
+var exphbs = require('express-handlebars');
+app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
+app.set('view engine', '.hbs');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -20,7 +22,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //var connection = mongoose.connect('mongodb://localhost:27017/abhivaad');
-var connection = mongoose.connect('mongodb://sushant_jadhav:$ush@nt1993@ds017432.mlab.com:17432/abhivaad');
+var connection = mongoose.createConnection('mongodb://sushant_jadhav:$ush@nt1993@ds017432.mlab.com:17432/abhivaad');
 //var connection = mongoose.createConnection('mongodb://local
 // host:27017/abhivaad');
 autoIncrement.initialize(connection);
